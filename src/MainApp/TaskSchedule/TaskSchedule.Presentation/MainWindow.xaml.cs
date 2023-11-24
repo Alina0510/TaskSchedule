@@ -39,27 +39,31 @@ namespace TaskSchedule.Presentation
         public void BoardsPageRedirect(User user)
         {
             CurrentUser = user;
-            frame.Navigate(new BoardsPage(NewBoardRedirect, BoardPageRedirect, user));
+            frame.Navigate(new BoardsPage(NewBoardRedirect, BoardPageRedirect, user, MyTasksPageRedirect, BoardsPageRedirect));
+        }
+        public void MyTasksPageRedirect()
+        {
+            frame.Navigate(new MyTasksPage(BoardsPageRedirect, CurrentUser, MyTasksPageRedirect, BoardsPageRedirect));
         }
         public void BoardsPageRedirect()
         {
-            frame.Navigate(new BoardsPage(NewBoardRedirect, BoardPageRedirect, CurrentUser));
+            frame.Navigate(new BoardsPage(NewBoardRedirect, BoardPageRedirect, CurrentUser, MyTasksPageRedirect, BoardsPageRedirect));
         }
-        public void TaskPageRedirect(BoardTask currentTask, int? boardId)
+        public void TaskPageRedirect(BoardTask currentTask, int? boardId, bool canUpdate, bool canDelete)
         {
-            frame.Navigate(new TaskPage(BoardPageRedirect, CurrentUser, currentTask, boardId));
+            frame.Navigate(new TaskPage(BoardPageRedirect, CurrentUser, currentTask, boardId, canUpdate, canDelete, MyTasksPageRedirect, BoardsPageRedirect));
         }
         public void BoardPageRedirect(int? boardId)
         {
-            frame.Navigate(new BoardPage(boardId, NewTaskRedirect, TaskPageRedirect));
+            frame.Navigate(new BoardPage(boardId, NewTaskRedirect, TaskPageRedirect, CurrentUser, MyTasksPageRedirect, BoardsPageRedirect));
         }
         public void NewBoardRedirect()
         {
-            frame.Navigate(new NewBoard(BoardsPageRedirect, CurrentUser));
+            frame.Navigate(new NewBoard(BoardsPageRedirect, CurrentUser, MyTasksPageRedirect, BoardsPageRedirect));
         }
         public void NewTaskRedirect(int? boardId)
         {
-            frame.Navigate(new NewTask(BoardPageRedirect, CurrentUser, boardId));
+            frame.Navigate(new NewTask(BoardPageRedirect, CurrentUser, boardId, MyTasksPageRedirect, BoardsPageRedirect));
         }
     }
 }

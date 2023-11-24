@@ -23,6 +23,10 @@ namespace TaskSchedule.BLL.Services
         {
             return context.Users.Select(i => new UserComboboxVM() { Id = i.Id, Name = i.Name }).ToList();
         }
+        public async static Task<Role> GetUserRole(this ApplicationContext context, int userId, int boardId)
+        {
+            return context.UserBoardRoles.Include(i => i.Role).Where(i => i.UserId == userId && i.BoardId == boardId).First().Role;
+        }
         public async static Task<User?> LoginUser(this ApplicationContext context, string email, string password)
         {
             var user = await context.Users.FirstOrDefaultAsync(i => i.Email == email);

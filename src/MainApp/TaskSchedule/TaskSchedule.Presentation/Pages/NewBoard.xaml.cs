@@ -25,17 +25,31 @@ namespace TaskSchedule.Presentation.Pages
     {
         public Action GoToBoards { get; set; }
         public User CurrentUser { get; set; }
-        public NewBoard(Action goToBoards, User user)
+        public Action GoToMyTasks { get; set; }
+        public Action GoToBoardsNav { get; set; }
+        public NewBoard(Action goToBoards, User user, Action goToMyTasks, Action goToBoardsNav)
         {
             GoToBoards = goToBoards;
             CurrentUser = user;
             InitializeComponent();
+            GoToMyTasks = goToMyTasks;
+            GoToBoardsNav = goToBoardsNav;
         }
 
         private async void button_Click(object sender, RoutedEventArgs e)
         {
             await SingletonContext.Instance.CreateBoard(nameTextBox.Text, descriptionTextBox.Text, CurrentUser.Id);
             GoToBoards();
+        }
+
+        private void buttonBoards_Click(object sender, RoutedEventArgs e)
+        {
+            GoToBoardsNav();
+        }
+
+        private void buttonMyTasks_Click(object sender, RoutedEventArgs e)
+        {
+            GoToMyTasks();
         }
     }
 }

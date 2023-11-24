@@ -24,21 +24,35 @@ namespace TaskSchedule.Presentation.Pages
     public partial class NewTask : Page
     {
         public Action<int?> GoToBoard { get; set; }
+        public Action GoToMyTasks { get; set; }
+        public Action GoToBoardsNav { get; set; }
         public User CurentUser { get; set; }
         public int? BoardId { get; set; }
 
-        public NewTask(Action<int?> goToBoard, User currentUser, int? boardId)
+        public NewTask(Action<int?> goToBoard, User currentUser, int? boardId, Action goToMyTasks, Action goToBoardsNav)
         {
             GoToBoard = goToBoard;
             CurentUser = currentUser;
             BoardId = boardId;
             InitializeComponent();
+            GoToMyTasks = goToMyTasks;
+            GoToBoardsNav = goToBoardsNav;
         }
 
         private async void createTaskButton_Click(object sender, RoutedEventArgs e)
         {
             await SingletonContext.Instance.CreateTask(nameTextBox.Text, descriptionTextBox.Text, datePicker.DisplayDate, CurentUser.Id, BoardId);
             GoToBoard(BoardId);
+        }
+
+        private void buttonBoards_Click(object sender, RoutedEventArgs e)
+        {
+            GoToBoardsNav();
+        }
+
+        private void buttonMyTasks_Click(object sender, RoutedEventArgs e)
+        {
+            GoToMyTasks();
         }
     }
 }

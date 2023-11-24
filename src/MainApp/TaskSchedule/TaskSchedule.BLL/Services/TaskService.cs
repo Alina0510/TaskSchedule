@@ -31,5 +31,10 @@ namespace TaskSchedule.BLL.Services
             context.Update(task);
             context.SaveChanges();
         }
+        public async static ValueTask DeleteTask(this ApplicationContext context, int taskId)
+        {
+            context.BoardTasks.Remove(context.BoardTasks.First(i => i.Id == taskId));
+            context.SaveChanges();
+        }
     }
 }
