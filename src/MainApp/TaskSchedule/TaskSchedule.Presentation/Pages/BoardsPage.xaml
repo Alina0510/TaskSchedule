@@ -19,5 +19,7 @@
             </ListView.View>
         </ListView>
         <Button x:Name="createBoardButton" Content="New Board" HorizontalAlignment="Left" Margin="594,329,0,0" VerticalAlignment="Top" Width="112" Click="createBoardButton_Click"/>
+        <Button x:Name="buttonBoardsNav" Content="Boards" HorizontalAlignment="Left" Margin="40,39,0,0" VerticalAlignment="Top" Width="68" Click="buttonBoards_Click"/>
+        <Button x:Name="buttonMyTasksNav" Content="My Tasks" HorizontalAlignment="Left" Margin="108,39,0,0" VerticalAlignment="Top" Width="68" Click="buttonMyTasks_Click"/>
     </Grid>
 </Page>

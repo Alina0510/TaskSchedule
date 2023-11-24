@@ -12,6 +12,8 @@
         <TextBox x:Name="nameTextBox" HorizontalAlignment="Left" Margin="440,144,0,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top" Width="161"/>
         <TextBox x:Name="descriptionTextBox" HorizontalAlignment="Left" Margin="440,188,0,0" TextWrapping="Wrap" Text="Description" VerticalAlignment="Top" Width="161"/>
         <Button x:Name="button" Content="Create new" HorizontalAlignment="Left" Margin="440,238,0,0" VerticalAlignment="Top" Width="161" Click="button_Click"/>
+        <Button x:Name="buttonBoardsNav" Content="Boards" HorizontalAlignment="Left" Margin="40,39,0,0" VerticalAlignment="Top" Width="68" Click="buttonBoards_Click"/>
+        <Button x:Name="buttonMyTasksNav" Content="My Tasks" HorizontalAlignment="Left" Margin="108,39,0,0" VerticalAlignment="Top" Width="68" Click="buttonMyTasks_Click"/>
 
     </Grid>
 </Page>

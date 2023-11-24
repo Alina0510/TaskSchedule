@@ -25,12 +25,16 @@ namespace TaskSchedule.Presentation.Pages
     public partial class BoardPage : Page
     {
         public Board CurrentBoard { get; set; }
+        public User CurrentUser { get; set; }
+        public Role CurrentRole { get; set; }
         public Action<int?> GoToCreateTask { get; set; }
-        public Action<BoardTask, int?> GoToTask { get; set; }
+        public Action GoToMyTasks { get; set; }
+        public Action GoToBoardsNav { get; set; }
+        public Action<BoardTask, int?, bool, bool> GoToTask { get; set; }
         public List<BoardTask> ToDoTasks { get; set; }
         public List<BoardTask> InReviewTasks { get; set; }
         public List<BoardTask> DoneTasks { get; set; }
-        public BoardPage(int? boardId, Action<int?> goToCreateTask, Action<BoardTask, int?> goToTask)
+        public BoardPage(int? boardId, Action<int?> goToCreateTask, Action<BoardTask, int?, bool, bool> goToTask, User user, Action goToMyTasks, Action goToBoardsNav)
         {
             CurrentBoard = SingletonContext.Instance.GetBoardById(boardId).Result;
             GoToCreateTask = goToCreateTask;
@@ -40,6 +44,14 @@ namespace TaskSchedule.Presentation.Pages
             TaskReviewList.ItemsSource = InReviewTasks;
             TaskFinishedList.ItemsSource = DoneTasks;
             GoToTask = goToTask;
+            CurrentUser = user;
+            CurrentRole = SingletonContext.Instance.GetUserRole(CurrentUser.Id, CurrentBoard.Id).Result;
+            if (CurrentRole.TaskWrite == AccessLevelEnum.None)
+            {
+                createTaskButton.IsEnabled = false;
+            }
+            GoToMyTasks = goToMyTasks;
+            GoToBoardsNav = goToBoardsNav;
         }
 
         private void createTaskButton_Click(object sender, RoutedEventArgs e)
@@ -50,8 +62,27 @@ namespace TaskSchedule.Presentation.Pages
         {
             if (sender is ListView list && list.SelectedItem is BoardTask selectedItem)
             {
-                GoToTask(selectedItem, CurrentBoard.Id);
+                bool canDelete = false;
+                if (CurrentRole.TaskDelete == AccessLevelEnum.All)
+                {
+                    canDelete = true;
+                }
+                if (CurrentRole.TaskDelete == AccessLevelEnum.Own && selectedItem.AssignedUserId == CurrentUser.Id)
+                {
+                    canDelete = true;
+                }
+                GoToTask(selectedItem, CurrentBoard.Id, CurrentRole.TaskWrite == AccessLevelEnum.All, canDelete);
             }
+        }
+
+        private void buttonBoards_Click(object sender, RoutedEventArgs e)
+        {
+            GoToBoardsNav();
+        }
+
+        private void buttonMyTasks_Click(object sender, RoutedEventArgs e)
+        {
+            GoToMyTasks();
         }
     }
 }

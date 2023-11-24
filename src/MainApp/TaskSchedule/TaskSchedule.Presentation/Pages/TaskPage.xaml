@@ -19,6 +19,9 @@
         <DatePicker x:Name="datePicker" HorizontalAlignment="Left" Margin="54,193,0,0" VerticalAlignment="Top" Width="150"/>
         <Button x:Name="saveButton" Content="Save" HorizontalAlignment="Left" Margin="286,242,0,0" VerticalAlignment="Top" Width="81" Click="saveButton_Click"/>
         <Button x:Name="cancelButton" Content="Cancel" HorizontalAlignment="Left" Margin="387,242,0,0" VerticalAlignment="Top" Width="81" Click="cancelButton_Click"/>
+        <Button x:Name="deleteButton" Content="Delete" HorizontalAlignment="Left" Margin="484,242,0,0" VerticalAlignment="Top" Width="81" Click="deleteButton_Click"/>
+        <Button x:Name="buttonBoardsNav" Content="Boards" HorizontalAlignment="Left" Margin="40,39,0,0" VerticalAlignment="Top" Width="68" Click="buttonBoards_Click"/>
+        <Button x:Name="buttonMyTasksNav" Content="My Tasks" HorizontalAlignment="Left" Margin="108,39,0,0" VerticalAlignment="Top" Width="68" Click="buttonMyTasks_Click"/>
 
     </Grid>
 </Page>

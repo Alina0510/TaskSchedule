@@ -27,8 +27,10 @@ namespace TaskSchedule.Presentation.Pages
         public Action GoToNewBoard {  get; set; }
         public Action<int?> GoToBoard { get; set; }
         public User CurrentUser { get; set; }
+        public Action GoToMyTasks { get; set; }
+        public Action GoToBoardsNav { get; set; }
         public List<MyBoardsListVM> BoardsList {  get; set; }
-        public BoardsPage(Action goToNewBoard, Action<int?> goToBoard, User user)
+        public BoardsPage(Action goToNewBoard, Action<int?> goToBoard, User user, Action goToMyTasks, Action goToBoardsNav)
         {
             InitializeComponent();
             GoToNewBoard = goToNewBoard;
@@ -36,6 +38,8 @@ namespace TaskSchedule.Presentation.Pages
             CurrentUser = user;
             BoardsList = SingletonContext.Instance.GetBoardForUser(CurrentUser.Id).Result;
             MyListView.ItemsSource = BoardsList;
+            GoToMyTasks = goToMyTasks;
+            GoToBoardsNav = goToBoardsNav;
         }
 
         private void createBoardButton_Click(object sender, RoutedEventArgs e)
@@ -49,6 +53,16 @@ namespace TaskSchedule.Presentation.Pages
                 GoToBoard(selectedItem.Id);
                     
             }
+        }
+
+        private void buttonBoards_Click(object sender, RoutedEventArgs e)
+        {
+            GoToBoardsNav();
+        }
+
+        private void buttonMyTasks_Click(object sender, RoutedEventArgs e)
+        {
+            GoToMyTasks();
         }
     }
 }
