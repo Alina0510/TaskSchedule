@@ -1,0 +1,23 @@
+﻿<Page x:Class="TaskSchedule.Presentation.Pages.BoardsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TaskSchedule.Presentation.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="BoardsPage">
+
+    <Grid>
+        <ListView x:Name="MyListView" Height="200" Width="300" MouseDoubleClick="MyListView_MouseDoubleClick" Margin="223,125,277,125">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}" />
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" />
+                    <GridViewColumn Header="Role" DisplayMemberBinding="{Binding Role}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button x:Name="createBoardButton" Content="New Board" HorizontalAlignment="Left" Margin="594,329,0,0" VerticalAlignment="Top" Width="112" Click="createBoardButton_Click"/>
+    </Grid>
+</Page>
