@@ -11,6 +11,16 @@
     <Grid>
         <Button x:Name="buttonBoardsNav" Content="Boards" HorizontalAlignment="Left" Margin="40,39,0,0" VerticalAlignment="Top" Width="68" Click="buttonBoards_Click"/>
         <Button x:Name="buttonMyTasksNav" Content="My Tasks" HorizontalAlignment="Left" Margin="108,39,0,0" VerticalAlignment="Top" Width="68" Click="buttonMyTasks_Click"/>
+        <ListView x:Name="TaskToDoList" Margin="31,91,59,200" MouseDoubleClick="TaskList_MouseDoubleClick">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Title}"  Width="150"/>
+                    <GridViewColumn Header="Board" DisplayMemberBinding="{Binding BoardName}"  Width="150"/>
+                    <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}"  Width="150"/>
+                    <GridViewColumn Header="Deadline" DisplayMemberBinding="{Binding Deadline}"  Width="150"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
 
     </Grid>
 </Page>

@@ -43,7 +43,7 @@ namespace TaskSchedule.Presentation
         }
         public void MyTasksPageRedirect()
         {
-            frame.Navigate(new MyTasksPage(BoardsPageRedirect, CurrentUser, MyTasksPageRedirect, BoardsPageRedirect));
+            frame.Navigate(new MyTasksPage(BoardsPageRedirect, CurrentUser, MyTasksPageRedirect, BoardsPageRedirect, TaskPageRedirect));
         }
         public void BoardsPageRedirect()
         {

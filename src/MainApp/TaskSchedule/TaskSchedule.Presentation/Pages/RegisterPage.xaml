@@ -15,5 +15,9 @@
         <Button x:Name="createUserButton" Content="Create" HorizontalAlignment="Left" Margin="388,279,0,0" VerticalAlignment="Top" Width="71" Click="createUserButton_Click"/>
         <TextBox x:Name="nameTextBox" HorizontalAlignment="Left" Margin="298,110,0,0" TextWrapping="Wrap" Text="Nickname" VerticalAlignment="Top" Width="161"/>
         <TextBox x:Name="passwordTextBoxConfirm" HorizontalAlignment="Left" Margin="298,239,0,0" TextWrapping="Wrap" Text="Confirm Password" VerticalAlignment="Top" Width="161"/>
+        <Label x:Name="labelErrorNickname" Content="" HorizontalAlignment="Left" Margin="298,124,0,0" VerticalAlignment="Top" Width="117" FontSize="9" Foreground="#FFE40000"/>
+        <Label x:Name="labelErrorEmail" Content="" HorizontalAlignment="Left" Margin="298,168,0,0" VerticalAlignment="Top" Width="117" FontSize="9" Foreground="#FFE40000"/>
+        <Label x:Name="labelErrorPass" Content="" HorizontalAlignment="Left" Margin="298,210,0,0" VerticalAlignment="Top" Width="117" FontSize="9" Foreground="#FFE40000"/>
+        <Label x:Name="labelErrorConfPass" Content="" HorizontalAlignment="Left" Margin="298,257,0,0" VerticalAlignment="Top" Width="117" FontSize="9" Foreground="#FFE40000"/>
     </Grid>
 </Page>

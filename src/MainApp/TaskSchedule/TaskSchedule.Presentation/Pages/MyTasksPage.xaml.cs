@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TaskSchedule.BLL.Models;
+using TaskSchedule.BLL.Services;
 using TaskSchedule.BLL.Singletons;
 using TaskSchedule.DAL.Models;
 
@@ -26,12 +27,17 @@ namespace TaskSchedule.Presentation.Pages
         public Action GoToMyTasks { get; set; }
         public Action GoToBoardsNav { get; set; }
         public User CurrentUser { get; set; }
-        public MyTasksPage(Action goToBoards, User user, Action goToMyTasks, Action goToBoardsNav)
+        public Action<BoardTask, int?, bool, bool> GoToTask { get; set; }
+        public List<MyTaskVM> TasksList { get; set; }
+        public MyTasksPage(Action goToBoards, User user, Action goToMyTasks, Action goToBoardsNav, Action<BoardTask, int?, bool, bool> goToTask)
         {
             InitializeComponent();
             CurrentUser = user;
             GoToMyTasks = goToMyTasks;
             GoToBoardsNav = goToBoardsNav;
+            TasksList = SingletonContext.Instance.GetMyTasksByUserId(CurrentUser.Id).Result;
+            TaskToDoList.ItemsSource = TasksList;
+            GoToTask = goToTask;
         }
 
         private void buttonBoards_Click(object sender, RoutedEventArgs e)
@@ -42,6 +48,19 @@ namespace TaskSchedule.Presentation.Pages
         private void buttonMyTasks_Click(object sender, RoutedEventArgs e)
         {
             GoToMyTasks();
+        }
+
+        private void TaskList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is ListView list && list.SelectedItem is MyTaskVM selectedItem)
+            {
+                bool canDelete = false;
+                if (selectedItem.TaskRole.TaskDelete == AccessLevelEnum.All || selectedItem.TaskRole.TaskDelete == AccessLevelEnum.Own)
+                {
+                    canDelete = true;
+                }
+                GoToTask(selectedItem.BoardTask, selectedItem.BoardId, selectedItem.TaskRole.TaskWrite == AccessLevelEnum.All, canDelete);
+            }
         }
     }
 }

@@ -45,19 +45,42 @@ namespace TaskSchedule.Presentation.Pages
         }
         private bool VilidateUser()
         {
-            if (nameTextBox.Text.IsNullOrEmpty() || nameTextBox.Text.Length < 8)
+            labelErrorConfPass.Content = string.Empty;
+            labelErrorPass.Content = string.Empty;
+            labelErrorEmail.Content = string.Empty;
+            labelErrorNickname.Content = string.Empty;
+            bool valid = true;
+            if (nameTextBox.Text.IsNullOrEmpty())
             {
-                return false;
+                valid = false;
+                labelErrorNickname.Content = "NickName is empty";
+            }
+            if ( nameTextBox.Text?.Length < 8)
+            {
+                valid = false;
+                labelErrorNickname.Content = "NickName length is less then 8 symbols";
             }
             if (emailTextBox.Text.IsNullOrEmpty())
             {
-                return false;
+                valid = false;
+                labelErrorEmail.Content = "Email is empty";
             }
-            if (passwordTextBox.Text.IsNullOrEmpty() || passwordTextBox.Text.Length < 8 || passwordTextBox.Text != passwordTextBoxConfirm.Text)
+            if (passwordTextBox.Text.IsNullOrEmpty())
             {
-                return false;
+                valid = false;
+                labelErrorPass.Content = "Password is empty";
             }
-            return true;
+            if (passwordTextBox.Text.Length < 8)
+            {
+                valid = false;
+                labelErrorPass.Content = "Password length is less then 8 symbols";
+            }
+            if (passwordTextBox.Text != passwordTextBoxConfirm.Text)
+            {
+                valid = false;
+                labelErrorConfPass.Content = "Confirm password doesn`t match password";
+            }
+            return valid;
         }
     }
 }
