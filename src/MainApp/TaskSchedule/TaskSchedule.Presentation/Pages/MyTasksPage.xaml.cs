@@ -1,4 +1,5 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,6 +30,7 @@ namespace TaskSchedule.Presentation.Pages
         public User CurrentUser { get; set; }
         public Action<BoardTask, int?, bool, bool> GoToTask { get; set; }
         public List<MyTaskVM> TasksList { get; set; }
+        private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public MyTasksPage(Action goToBoards, User user, Action goToMyTasks, Action goToBoardsNav, Action<BoardTask, int?, bool, bool> goToTask)
         {
             InitializeComponent();
@@ -42,16 +44,19 @@ namespace TaskSchedule.Presentation.Pages
 
         private void buttonBoards_Click(object sender, RoutedEventArgs e)
         {
+            log.Info("Boards Page Redirect");
             GoToBoardsNav();
         }
 
         private void buttonMyTasks_Click(object sender, RoutedEventArgs e)
         {
+            log.Info("My Tasks Page Redirect");
             GoToMyTasks();
         }
 
         private void TaskList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            log.Info("Task Page Redirect");
             if (sender is ListView list && list.SelectedItem is MyTaskVM selectedItem)
             {
                 bool canDelete = false;

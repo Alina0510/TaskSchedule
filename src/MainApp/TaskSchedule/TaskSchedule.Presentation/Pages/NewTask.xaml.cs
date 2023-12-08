@@ -1,4 +1,5 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,6 +29,7 @@ namespace TaskSchedule.Presentation.Pages
         public Action GoToBoardsNav { get; set; }
         public User CurentUser { get; set; }
         public int? BoardId { get; set; }
+        private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public NewTask(Action<int?> goToBoard, User currentUser, int? boardId, Action goToMyTasks, Action goToBoardsNav)
         {
@@ -41,17 +43,28 @@ namespace TaskSchedule.Presentation.Pages
 
         private async void createTaskButton_Click(object sender, RoutedEventArgs e)
         {
-            await SingletonContext.Instance.CreateTask(nameTextBox.Text, descriptionTextBox.Text, datePicker.DisplayDate, CurentUser.Id, BoardId);
+            log.Info($"User {CurentUser.Email} created new task");
+            try
+            {
+                await SingletonContext.Instance.CreateTask(nameTextBox.Text, descriptionTextBox.Text, datePicker.DisplayDate, CurentUser.Id, BoardId);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+                throw ex;
+            }
             GoToBoard(BoardId);
         }
 
         private void buttonBoards_Click(object sender, RoutedEventArgs e)
         {
+            log.Info($"User {CurentUser.Email} navigated to boards");
             GoToBoardsNav();
         }
 
         private void buttonMyTasks_Click(object sender, RoutedEventArgs e)
         {
+            log.Info($"User {CurentUser.Email} navigated to my tasks");
             GoToMyTasks();
         }
     }
