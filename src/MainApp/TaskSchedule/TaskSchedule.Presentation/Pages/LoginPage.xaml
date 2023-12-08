@@ -8,11 +8,57 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="LoginPage">
 
-    <Grid>
-        <TextBox x:Name="emailTextBox" HorizontalAlignment="Left" Margin="440,144,0,0" TextWrapping="Wrap" Text="Email" VerticalAlignment="Top" Width="161"/>
-        <TextBox x:Name="passwordTextBox" HorizontalAlignment="Left" Margin="440,188,0,0" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" Width="161"/>
+    <Grid RenderTransformOrigin="0.5,0.5">
+        <TextBox x:Name="emailTextBox" HorizontalAlignment="Left" Margin="440,144,0,0" TextWrapping="Wrap" Text="Email" VerticalAlignment="Top" Width="161">
+            <TextBox.RenderTransform>
+                <TranslateTransform X="0" Y="0"/>
+            </TextBox.RenderTransform>
+        </TextBox>
+        <TextBox x:Name="passwordTextBox" HorizontalAlignment="Left" Margin="440,188,0,0" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" Width="161" RenderTransformOrigin="0.5,0.5">
+            <TextBox.RenderTransform>
+                <TranslateTransform X="0" Y="0"/>
+            </TextBox.RenderTransform>
+        </TextBox>
         <Button x:Name="loginButton" Content="Login" HorizontalAlignment="Left" Margin="440,238,0,0" VerticalAlignment="Top" Width="71" Click="loginButton_Click"/>
         <Button x:Name="button" Content="Create new" HorizontalAlignment="Left" Margin="530,238,0,0" VerticalAlignment="Top" Width="71" Click="button_Click"/>
-
     </Grid>
+    <Page.Resources>
+        <Storyboard x:Key="FadeInStoryboard">
+            <DoubleAnimation Duration="0:0:1.5" From="0" To="1" Storyboard.TargetProperty="Opacity"/>
+        </Storyboard>
+        <Storyboard x:Key="ShakeAnimation">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.05" Value="-5"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="5"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.15" Value="-5"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="5"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.25" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Style TargetType="Button">
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform/>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Duration="0:0:0.2" To="1.05" Storyboard.TargetProperty="RenderTransform.ScaleX"/>
+                            <DoubleAnimation Duration="0:0:0.2" To="1.05" Storyboard.TargetProperty="RenderTransform.ScaleY"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Duration="0:0:0.2" To="1" Storyboard.TargetProperty="RenderTransform.ScaleX"/>
+                            <DoubleAnimation Duration="0:0:0.2" To="1" Storyboard.TargetProperty="RenderTransform.ScaleY"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
 </Page>
