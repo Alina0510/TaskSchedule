@@ -1,4 +1,5 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,6 +31,7 @@ namespace TaskSchedule.Presentation.Pages
         public Action GoToMyTasks { get; set; }
         public Action GoToBoardsNav { get; set; }
         public List<MyBoardsListVM> BoardsList {  get; set; }
+        private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public BoardsPage(Action goToNewBoard, Action<int?> goToBoard, User user, Action goToMyTasks, Action goToBoardsNav)
         {
             InitializeComponent();
@@ -44,10 +46,12 @@ namespace TaskSchedule.Presentation.Pages
 
         private void createBoardButton_Click(object sender, RoutedEventArgs e)
         {
+            log.Info("Create board button clicked");
             GoToNewBoard();
         }
         private void MyListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            log.Info("Board clicked");
             if (sender is ListView listView && listView.SelectedItem is MyBoardsListVM selectedItem)
             {
                 GoToBoard(selectedItem.Id);
@@ -57,11 +61,13 @@ namespace TaskSchedule.Presentation.Pages
 
         private void buttonBoards_Click(object sender, RoutedEventArgs e)
         {
+            log.Info("Boards button clicked");
             GoToBoardsNav();
         }
 
         private void buttonMyTasks_Click(object sender, RoutedEventArgs e)
         {
+            log.Info("My tasks button clicked");
             GoToMyTasks();
         }
     }

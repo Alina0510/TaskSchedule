@@ -1,4 +1,5 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,6 +35,7 @@ namespace TaskSchedule.Presentation.Pages
         public List<BoardTask> ToDoTasks { get; set; }
         public List<BoardTask> InReviewTasks { get; set; }
         public List<BoardTask> DoneTasks { get; set; }
+        private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public BoardPage(int? boardId, Action<int?> goToCreateTask, Action<BoardTask, int?, bool, bool> goToTask, User user, Action goToMyTasks, Action goToBoardsNav)
         {
             CurrentBoard = SingletonContext.Instance.GetBoardById(boardId).Result;
@@ -56,10 +58,12 @@ namespace TaskSchedule.Presentation.Pages
 
         private void createTaskButton_Click(object sender, RoutedEventArgs e)
         {
+            log.Info("Create task button clicked");
             GoToCreateTask(CurrentBoard.Id);
         }
         private void TaskList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            log.Info("Task list double clicked");
             if (sender is ListView list && list.SelectedItem is BoardTask selectedItem)
             {
                 bool canDelete = false;
@@ -77,11 +81,13 @@ namespace TaskSchedule.Presentation.Pages
 
         private void buttonBoards_Click(object sender, RoutedEventArgs e)
         {
+            log.Info("Boards button clicked");
             GoToBoardsNav();
         }
 
         private void buttonMyTasks_Click(object sender, RoutedEventArgs e)
         {
+            log.Info("My tasks button clicked");
             GoToMyTasks();
         }
     }

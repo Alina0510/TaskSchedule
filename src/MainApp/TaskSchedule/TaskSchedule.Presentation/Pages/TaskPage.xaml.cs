@@ -1,4 +1,5 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,6 +31,7 @@ namespace TaskSchedule.Presentation.Pages
         public Action GoToMyTasks { get; set; }
         public Action GoToBoardsNav { get; set; }
         public int? BoardId { get; set; }
+        private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public TaskPage(Action<int?> goToBoard, User currentUser, BoardTask currentTask, int? boardId, bool canUpdate, bool canDelete, Action goToMyTasks, Action goToBoardsNav)
         {
             InitializeComponent();
@@ -69,44 +71,58 @@ namespace TaskSchedule.Presentation.Pages
 
         private async void saveButton_Click(object sender, RoutedEventArgs e)
         {
-            if (radioButton.IsChecked == true)
+            log.Info("TaskPage Save Button Click");
+            try
             {
-                CurrentTask.Status = "ToDo";
+                if (radioButton.IsChecked == true)
+                {
+                    CurrentTask.Status = "ToDo";
+                }
+                if (radioButton1.IsChecked == true)
+                {
+                    CurrentTask.Status = "InReview";
+                }
+                if (radioButton2.IsChecked == true)
+                {
+                    CurrentTask.Status = "Done";
+                }
+                CurrentTask.Title = nameTextBox.Text;
+                CurrentTask.Description = descriptionTextBox.Text;
+                CurrentTask.Deadline = datePicker.SelectedDate.Value;
+                var user = comboBox.SelectedItem as UserComboboxVM;
+                CurrentTask.AssignedUserId = user.Id;
+                await SingletonContext.Instance.SaveTask(CurrentTask);
+                GoToBoard(BoardId);
             }
-            if (radioButton1.IsChecked == true)
+            catch (Exception ex)
             {
-                CurrentTask.Status = "InReview";
+                log.Error(ex);
+                throw ex;
             }
-            if (radioButton2.IsChecked == true)
-            {
-                CurrentTask.Status = "Done";
-            }
-            CurrentTask.Title = nameTextBox.Text;
-            CurrentTask.Description = descriptionTextBox.Text;
-            CurrentTask.Deadline = datePicker.SelectedDate.Value;
-            var user = comboBox.SelectedItem as UserComboboxVM;
-            CurrentTask.AssignedUserId = user.Id;
-            await SingletonContext.Instance.SaveTask(CurrentTask);
-            GoToBoard(BoardId);
+            
         }
 
         private void cancelButton_Click(object sender, RoutedEventArgs e)
         {
+            log.Info("TaskPage Cancel Button Click");
             GoToBoard(BoardId);
         }
 
         private async void deleteButton_Click(object sender, RoutedEventArgs e)
         {
+            log.Info("TaskPage Delete Button Click");
             await SingletonContext.Instance.DeleteTask(CurrentTask.Id);
         }
 
         private void buttonBoards_Click(object sender, RoutedEventArgs e)
         {
+            log.Info("TaskPage Boards Button Click");
             GoToBoardsNav();
         }
 
         private void buttonMyTasks_Click(object sender, RoutedEventArgs e)
         {
+            log.Info("TaskPage MyTasks Button Click");
             GoToMyTasks();
         }
     }
