@@ -57,12 +57,12 @@ namespace TaskSchedule.Presentation
             log.Info("Boards Page Redirect");
             frame.Navigate(new BoardsPage(NewBoardRedirect, BoardPageRedirect, CurrentUser, MyTasksPageRedirect, BoardsPageRedirect));
         }
-        public void TaskPageRedirect(BoardTask currentTask, int? boardId, bool canUpdate, bool canDelete)
+        public void TaskPageRedirect(BoardTask currentTask, int boardId, bool canUpdate, bool canDelete)
         {
             log.Info("Task Page Redirect");
             frame.Navigate(new TaskPage(BoardPageRedirect, CurrentUser, currentTask, boardId, canUpdate, canDelete, MyTasksPageRedirect, BoardsPageRedirect));
         }
-        public void BoardPageRedirect(int? boardId)
+        public void BoardPageRedirect(int boardId)
         {
             log.Info("Board Page Redirect");
             frame.Navigate(new BoardPage(boardId, NewTaskRedirect, TaskPageRedirect, CurrentUser, MyTasksPageRedirect, BoardsPageRedirect));
@@ -72,7 +72,7 @@ namespace TaskSchedule.Presentation
             log.Info("New Board Redirect");
             frame.Navigate(new NewBoard(BoardsPageRedirect, CurrentUser, MyTasksPageRedirect, BoardsPageRedirect));
         }
-        public void NewTaskRedirect(int? boardId)
+        public void NewTaskRedirect(int boardId)
         {
             log.Info("New Task Redirect");
             frame.Navigate(new NewTask(BoardPageRedirect, CurrentUser, boardId, MyTasksPageRedirect, BoardsPageRedirect));

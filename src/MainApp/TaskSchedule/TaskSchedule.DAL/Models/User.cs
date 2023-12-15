@@ -9,9 +9,9 @@ namespace TaskSchedule.DAL.Models
     public class User
     {
         public int Id { get; set; }
-        public string? Name { get; set; }
-        public string? Email { get; set; }
-        public string? Password { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
         public ICollection<Board> Boards { get; set; }
         public ICollection<UserBoardRole> UserBoardRoles { get; set; }
         public ICollection<BoardTask> BoardTasks { get; set; }

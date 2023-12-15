@@ -26,13 +26,13 @@ namespace TaskSchedule.Presentation.Pages
     public partial class BoardsPage : Page
     {
         public Action GoToNewBoard {  get; set; }
-        public Action<int?> GoToBoard { get; set; }
+        public Action<int> GoToBoard { get; set; }
         public User CurrentUser { get; set; }
         public Action GoToMyTasks { get; set; }
         public Action GoToBoardsNav { get; set; }
         public List<MyBoardsListVM> BoardsList {  get; set; }
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        public BoardsPage(Action goToNewBoard, Action<int?> goToBoard, User user, Action goToMyTasks, Action goToBoardsNav)
+        public BoardsPage(Action goToNewBoard, Action<int> goToBoard, User user, Action goToMyTasks, Action goToBoardsNav)
         {
             InitializeComponent();
             GoToNewBoard = goToNewBoard;

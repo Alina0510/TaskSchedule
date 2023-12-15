@@ -24,14 +24,14 @@ namespace TaskSchedule.Presentation.Pages
     /// </summary>
     public partial class NewTask : Page
     {
-        public Action<int?> GoToBoard { get; set; }
+        public Action<int> GoToBoard { get; set; }
         public Action GoToMyTasks { get; set; }
         public Action GoToBoardsNav { get; set; }
         public User CurentUser { get; set; }
-        public int? BoardId { get; set; }
+        public int BoardId { get; set; }
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public NewTask(Action<int?> goToBoard, User currentUser, int? boardId, Action goToMyTasks, Action goToBoardsNav)
+        public NewTask(Action<int> goToBoard, User currentUser, int boardId, Action goToMyTasks, Action goToBoardsNav)
         {
             GoToBoard = goToBoard;
             CurentUser = currentUser;
