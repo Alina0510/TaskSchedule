@@ -14,13 +14,13 @@ namespace TaskSchedule.BLL.Services
     {
         public async static Task<List<MyBoardsListVM>> GetBoardForUser(this ApplicationContext context, int userId)
         {
-            return context.UserBoardRoles.Include(i => i.Board).Include(i => i.Role).Where(i => i.UserId == userId).Select(i => new MyBoardsListVM(i.BoardId, i.Board.Name, i.Role.Name)).ToList();
+            return context.UserBoardRoles.Include(i => i.Board).Include(i => i.Role).Where(i => i.UserId == userId).Select(i => new MyBoardsListVM(i.BoardId.Value, i.Board.Name, i.Role.Name)).ToList();
         }
         public async static Task<Board> GetBoardById(this ApplicationContext context, int? boardId)
         {
             return context.Boards.First(i => i.Id == boardId);
         }
-        public async static Task CreateBoard(this ApplicationContext context, string name, string description, int? userId)
+        public async static Task CreateBoard(this ApplicationContext context, string name, string description, int userId)
         {
             Board board = new Board() { Description = description, Name = name, OwnerId = userId };
             await context.Boards.AddAsync(board);

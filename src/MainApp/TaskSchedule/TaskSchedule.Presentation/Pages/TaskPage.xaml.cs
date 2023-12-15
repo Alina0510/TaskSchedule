@@ -25,14 +25,14 @@ namespace TaskSchedule.Presentation.Pages
     /// </summary>
     public partial class TaskPage : Page
     {
-        public Action<int?> GoToBoard { get; set; }
+        public Action<int> GoToBoard { get; set; }
         public User CurrentUser { get; set; }
         public BoardTask CurrentTask { get; set; }
         public Action GoToMyTasks { get; set; }
         public Action GoToBoardsNav { get; set; }
-        public int? BoardId { get; set; }
+        public int BoardId { get; set; }
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        public TaskPage(Action<int?> goToBoard, User currentUser, BoardTask currentTask, int? boardId, bool canUpdate, bool canDelete, Action goToMyTasks, Action goToBoardsNav)
+        public TaskPage(Action<int> goToBoard, User currentUser, BoardTask currentTask, int boardId, bool canUpdate, bool canDelete, Action goToMyTasks, Action goToBoardsNav)
         {
             InitializeComponent();
             CurrentTask = currentTask;

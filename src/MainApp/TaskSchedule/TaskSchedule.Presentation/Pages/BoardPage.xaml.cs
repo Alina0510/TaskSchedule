@@ -28,15 +28,15 @@ namespace TaskSchedule.Presentation.Pages
         public Board CurrentBoard { get; set; }
         public User CurrentUser { get; set; }
         public Role CurrentRole { get; set; }
-        public Action<int?> GoToCreateTask { get; set; }
+        public Action<int> GoToCreateTask { get; set; }
         public Action GoToMyTasks { get; set; }
         public Action GoToBoardsNav { get; set; }
-        public Action<BoardTask, int?, bool, bool> GoToTask { get; set; }
+        public Action<BoardTask, int, bool, bool> GoToTask { get; set; }
         public List<BoardTask> ToDoTasks { get; set; }
         public List<BoardTask> InReviewTasks { get; set; }
         public List<BoardTask> DoneTasks { get; set; }
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        public BoardPage(int? boardId, Action<int?> goToCreateTask, Action<BoardTask, int?, bool, bool> goToTask, User user, Action goToMyTasks, Action goToBoardsNav)
+        public BoardPage(int boardId, Action<int> goToCreateTask, Action<BoardTask, int, bool, bool> goToTask, User user, Action goToMyTasks, Action goToBoardsNav)
         {
             CurrentBoard = SingletonContext.Instance.GetBoardById(boardId).Result;
             GoToCreateTask = goToCreateTask;

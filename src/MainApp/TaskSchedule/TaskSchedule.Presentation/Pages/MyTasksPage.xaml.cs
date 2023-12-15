@@ -28,10 +28,10 @@ namespace TaskSchedule.Presentation.Pages
         public Action GoToMyTasks { get; set; }
         public Action GoToBoardsNav { get; set; }
         public User CurrentUser { get; set; }
-        public Action<BoardTask, int?, bool, bool> GoToTask { get; set; }
+        public Action<BoardTask, int, bool, bool> GoToTask { get; set; }
         public List<MyTaskVM> TasksList { get; set; }
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        public MyTasksPage(Action goToBoards, User user, Action goToMyTasks, Action goToBoardsNav, Action<BoardTask, int?, bool, bool> goToTask)
+        public MyTasksPage(Action goToBoards, User user, Action goToMyTasks, Action goToBoardsNav, Action<BoardTask, int, bool, bool> goToTask)
         {
             InitializeComponent();
             CurrentUser = user;

@@ -12,7 +12,7 @@ namespace TaskSchedule.BLL.Services
 {
     public static class TaskService
     {
-        public async static Task CreateTask(this ApplicationContext context, string name, string description, DateTime dateTime, int userId, int? boardId)
+        public async static Task CreateTask(this ApplicationContext context, string name, string description, DateTime dateTime, int userId, int boardId)
         {
             await context.BoardTasks.AddAsync(new BoardTask() { AssignedUserId = userId, BoardId = boardId, Deadline = dateTime, Description = description, Status = "ToDo", Title = name });
             await context.SaveChangesAsync();
@@ -32,13 +32,13 @@ namespace TaskSchedule.BLL.Services
                 result.Add(new MyTaskVM()
                 {
                     Id = task.Id,
-                    BoardId = task.BoardId.Value,
+                    BoardId = task.BoardId,
                     BoardName = task.Board.Name,
                     BoardTask = task,
                     Deadline = task.Deadline,
                     Status = task.Status,
                     Title = task.Title,
-                    TaskRole = userBoardRoles.Where(i => i.BoardId == task.BoardId.Value).First().Role
+                    TaskRole = userBoardRoles.Where(i => i.BoardId == task.BoardId).First().Role
                 });
             }
             return result;
